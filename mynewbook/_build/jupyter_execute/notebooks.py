@@ -43,34 +43,42 @@
 # In[1]:
 
 
-from matplotlib import rcParams, cycler
-import matplotlib.pyplot as plt
-import numpy as np
-plt.ion()
+# here we will import the libraries used for machine learning
+
+import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv), data manipulation as in SQL
+import matplotlib.pyplot as plt # this is used for the plot the graph 
+import seaborn as sns # used for plot interactive graph. I like it most for plot
+get_ipython().run_line_magic('matplotlib', 'inline')
+from sklearn.linear_model import LogisticRegression # to apply the Logistic regression
+from sklearn.model_selection import train_test_split # to split the data into two parts
+from sklearn.model_selection import KFold # use for cross validation
+from sklearn.model_selection import GridSearchCV# for tuning parameter
+from sklearn.ensemble import RandomForestClassifier # for random forest classifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn import svm # for Support Vector Machine
+from sklearn import metrics # for the check the error and accuracy of the model
+# Any results you write to the current directory are saved as output.
+# dont worry about the error if its not working then insteda of model_selection we can use cross_validation
 
 
 # In[2]:
 
 
-# Fixing random state for reproducibility
-np.random.seed(19680801)
-
-N = 10
-data = [np.logspace(0, 1, 100) + np.random.randn(100) + ii for ii in range(N)]
-data = np.array(data).T
-cmap = plt.cm.coolwarm
-rcParams['axes.prop_cycle'] = cycler(color=cmap(np.linspace(0, 1, N)))
+data = pd.read_csv(".\data.csv",header=0)
 
 
-from matplotlib.lines import Line2D
-custom_lines = [Line2D([0], [0], color=cmap(0.), lw=4),
-                Line2D([0], [0], color=cmap(.5), lw=4),
-                Line2D([0], [0], color=cmap(1.), lw=4)]
+# A continuación revisamos la estructura del dataframe y de las variables que contiene
 
-fig, ax = plt.subplots(figsize=(10, 5))
-lines = ax.plot(data)
-ax.legend(custom_lines, ['Cold', 'Medium', 'Hot']);
+# In[3]:
 
 
-# There is a lot more that you can do with outputs (such as including interactive outputs)
-# with your book. For more information about this, see [the Jupyter Book documentation](https://jupyterbook.org)
+data.info()
+
+
+# In[4]:
+
+
+data.head(5)
+
