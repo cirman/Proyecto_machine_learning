@@ -59,6 +59,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn import svm # for Support Vector Machine
 from sklearn import metrics # for the check the error and accuracy of the model
+from plotnine import * # incluye funciones de ggplot
 # Any results you write to the current directory are saved as output.
 # dont worry about the error if its not working then insteda of model_selection we can use cross_validation
 
@@ -81,4 +82,18 @@ data.info()
 
 
 data.head(5)
+
+
+# En este caso el interés es clasificar correctamente los diagnosticos de una base datos. A continuación visualizamos los diagnosticos.
+
+# In[5]:
+
+
+a = (data
+                       .groupby("diagnosis")
+                       .agg(frequency=("diagnosis", "count"))
+                       .reset_index())
+
+(ggplot(a) +
+  geom_bar(aes(x = "diagnosis", y = "frequency"), stat = 'identity'))
 
