@@ -2,7 +2,7 @@
 # Learn more at https://jupyterbook.org/customize/config.html
 
 title: Basic Machine Learning with Cancer
-author: los que somos
+author: Carolina Diartt, Ciro Plata, Duban Romero
 logo: logo.png
 
 # Force re-execution of notebooks on each build.
