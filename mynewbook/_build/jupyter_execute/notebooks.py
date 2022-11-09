@@ -59,6 +59,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn import svm # for Support Vector Machine
 from sklearn import metrics # for the check the error and accuracy of the model
+from plotnine import * # incluye funciones de ggplot
 # Any results you write to the current directory are saved as output.
 # dont worry about the error if its not working then insteda of model_selection we can use cross_validation
 
@@ -74,11 +75,50 @@ data = pd.read_csv(".\data.csv",header=0)
 # In[3]:
 
 
-data.info()
+data.head()
 
 
 # In[4]:
 
 
-data.head(5)
+data.describe()
+
+
+# En este caso el interés es clasificar correctamente los diagnosticos de una base datos. A continuación visualizamos los diagnosticos.
+
+# In[5]:
+
+
+a = (data
+                       .groupby("diagnosis")
+                       .agg(frequency=("diagnosis", "count"))
+                       .reset_index())
+
+(ggplot(a) +
+  geom_bar(aes(x = "diagnosis", y = "frequency"), stat = 'identity'))
+
+
+# Se puede observar que la mayoría de diagnosticos son de tumores benignos y los malignos se presentan en una menor proporción. A continuación examinamos la distribución de los diagnosticos de acuerdo con otras variables de la base de datos
+
+# In[6]:
+
+
+plt.figure(figsize=(20,20))
+sns.heatmap(data.corr(),annot=True,fmt='.0%')
+
+
+# In[7]:
+
+
+facet = sns.FacetGrid(data, hue="diagnosis",aspect=4)
+facet.map(sns.kdeplot,'radius_mean',shade= True)
+facet.set(xlim=(0, data['radius_mean'].max()))
+facet.add_legend() 
+plt.show()
+
+facet = sns.FacetGrid(data, hue="diagnosis",aspect=4)
+facet.map(sns.kdeplot,'texture_mean',shade= True)
+facet.set(xlim=(0, data['texture_mean'].max()))
+facet.add_legend() 
+plt.xlim(10,20)
 
