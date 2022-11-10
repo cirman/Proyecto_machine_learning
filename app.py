@@ -3,6 +3,7 @@ from dash import dcc
 from dash import html
 import plotly.express as px
 import pandas as pd
+from dash.dependencies import Input, Output
 
 app = dash.Dash(__name__)
 
@@ -29,8 +30,7 @@ app.layout = html.Div([
         value='radius_mean'
     ),
     dcc.Graph(
-        id='example-graph-2',
-        figure=my_density(continuo,"diagnosis")
+        id='example-graph-2'
     )
 
 ], style={'columnCount': 2})
@@ -38,6 +38,8 @@ app.layout = html.Div([
 @app.callback(
     Output('example-graph-2', 'figure'),
     Input('continuo', 'value'))
-
+def update_graph(continuo):
+    fig = my_density(continuo,'diagnosis')
+    return fig
 if __name__ == '__main__':
     app.run_server(debug=True)
