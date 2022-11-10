@@ -33,7 +33,7 @@ app.layout = html.Div([
         id='example-graph-2'
     )
 
-], style={'columnCount': 2})
+]
 
 @app.callback(
     Output('example-graph-2', 'figure'),
