@@ -20,21 +20,24 @@ def my_density(x,m):
 app.layout = html.Div([
     html.Label('Dropdown'),
     dcc.Dropdown(
+        id = "continuo",
         options=[
             {'label': 'Mean Radius', 'value': 'radius_mean'},
             {'label': 'Mean Texture', 'value': 'texture_mean'},
             {'label': 'Mean Perimeter', 'value': 'perimeter_mean'}
         ],
-        value='MTL'
+        value='radius_mean'
     ),
-    dcc.Input(value='MTL', type='text'),
-
     dcc.Graph(
         id='example-graph-2',
-        figure=my_density(MTL,"diagnosis")
+        figure=my_density(continuo,"diagnosis")
     )
 
 ], style={'columnCount': 2})
+
+@app.callback(
+    Output('example-graph-2', 'figure'),
+    Input('continuo', 'value'))
 
 if __name__ == '__main__':
     app.run_server(debug=True)
