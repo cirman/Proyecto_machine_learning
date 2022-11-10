@@ -15,7 +15,7 @@ def my_density(x,m):
     facet.set(xlim=(0, data['x'].max()))
     facet.add_legend() 
     plt.show()
-fig = px.bar(df, x="Fruit", y="Amount", color="City", barmode="group")
+#fig = px.bar(df, x="Fruit", y="Amount", color="City", barmode="group")
 
 app.layout = html.Div([
     html.Label('Dropdown'),
