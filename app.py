@@ -1,21 +1,20 @@
+import matplotlib
+matplotlib.use('TkAgg')
 import dash
 from dash import dcc
 from dash import html
 import plotly.express as px
 import pandas as pd
 from dash.dependencies import Input, Output
+import seaborn as sns
+
+import matplotlib.pyplot as plt
 
 app = dash.Dash(__name__)
 
 data = pd.read_csv(".\data.csv",header=0)
 
-def my_density(x,m):
-    data = pd.DataFrame({'x': x, 'm': m})
-    facet = sns.FacetGrid(data, hue="m",aspect=4)
-    facet.map(sns.kdeplot,'x',shade= True)
-    facet.set(xlim=(0, data['x'].max()))
-    facet.add_legend() 
-    plt.show()
+
 #fig = px.bar(df, x="Fruit", y="Amount", color="City", barmode="group")
 
 app.layout = html.Div([
@@ -33,13 +32,19 @@ app.layout = html.Div([
         id='example-graph-2'
     )
 
-]
+])
 
 @app.callback(
     Output('example-graph-2', 'figure'),
     Input('continuo', 'value'))
 def update_graph(continuo):
-    fig = my_density(continuo,'diagnosis')
-    return fig
+    datos = data[[continuo,'diagnosis']]
+    facet = sns.FacetGrid(datos, hue='diagnosis',aspect=4)
+    facet.map(sns.kdeplot,continuo,shade= True)
+    facet.set(xlim=(0, datos[continuo].max()))
+    facet.add_legend()
+    plt.show()
+
+
 if __name__ == '__main__':
     app.run_server(debug=True)
