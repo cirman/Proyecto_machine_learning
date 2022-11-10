@@ -1,21 +1,19 @@
-import matplotlib
-matplotlib.use('TkAgg')
 import dash
 from dash import dcc
 from dash import html
 import plotly.express as px
 import pandas as pd
 from dash.dependencies import Input, Output
-import seaborn as sns
 
-import matplotlib.pyplot as plt
+import plotly.figure_factory as ff
+
+
 
 app = dash.Dash(__name__)
 
 data = pd.read_csv(".\data.csv",header=0)
 
 
-#fig = px.bar(df, x="Fruit", y="Amount", color="City", barmode="group")
 
 app.layout = html.Div([
     html.Label('Dropdown'),
@@ -39,11 +37,14 @@ app.layout = html.Div([
     Input('continuo', 'value'))
 def update_graph(continuo):
     datos = data[[continuo,'diagnosis']]
-    facet = sns.FacetGrid(datos, hue='diagnosis',aspect=4)
-    facet.map(sns.kdeplot,continuo,shade= True)
-    facet.set(xlim=(0, datos[continuo].max()))
-    facet.add_legend()
-    plt.show()
+    hist_data = [datos[datos['diagnosis']=="M"][continuo].values, datos[datos['diagnosis']=="B"][continuo].values]
+    group_labels = ['Maligno', 'Beningno']
+
+    fig = ff.create_distplot(hist_data, group_labels, show_hist=False, colors=['Red','Blue'])
+    fig.update_layout(title_text='Curva de densidad de '+continuo)
+
+    return fig
+
 
 
 if __name__ == '__main__':
