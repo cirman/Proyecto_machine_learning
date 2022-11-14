@@ -5,18 +5,15 @@ import plotly.express as px
 import pandas as pd
 from dash.dependencies import Input, Output
 
+import plotly.figure_factory as ff
+
+
+
 app = dash.Dash(__name__)
 
 data = pd.read_csv(".\data.csv",header=0)
 
-def my_density(x,m):
-    data = pd.DataFrame({'x': x, 'm': m})
-    facet = sns.FacetGrid(data, hue="m",aspect=4)
-    facet.map(sns.kdeplot,'x',shade= True)
-    facet.set(xlim=(0, data['x'].max()))
-    facet.add_legend() 
-    plt.show()
-#fig = px.bar(df, x="Fruit", y="Amount", color="City", barmode="group")
+
 
 app.layout = html.Div([
     html.Label('Dropdown'),
@@ -33,13 +30,22 @@ app.layout = html.Div([
         id='example-graph-2'
     )
 
-]
+])
 
 @app.callback(
     Output('example-graph-2', 'figure'),
     Input('continuo', 'value'))
 def update_graph(continuo):
-    fig = my_density(continuo,'diagnosis')
+    datos = data[[continuo,'diagnosis']]
+    hist_data = [datos[datos['diagnosis']=="M"][continuo].values, datos[datos['diagnosis']=="B"][continuo].values]
+    group_labels = ['Maligno', 'Beningno']
+
+    fig = ff.create_distplot(hist_data, group_labels, show_hist=False, colors=['Red','Blue'])
+    fig.update_layout(title_text='Curva de densidad de '+continuo)
+
     return fig
+
+
+
 if __name__ == '__main__':
     app.run_server(debug=True)
