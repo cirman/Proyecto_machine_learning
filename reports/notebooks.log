@@ -35,6 +35,9 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn import svm # for Support Vector Machine
 from sklearn import metrics # for the check the error and accuracy of the model
 from plotnine import * # incluye funciones de ggplot
+from sklearn.svm import SVC # support vector machine
+from sklearn.model_selection import cross_val_score # validacion cruzada
+from sklearn.model_selection import GridSearchCV # grid
 # Any results you write to the current directory are saved as output.
 # dont worry about the error if its not working then insteda of model_selection we can use cross_validation
 ------------------
@@ -45,8 +48,8 @@ Cell [1;32mIn [1], line 18[0m
 [0;32m     16[0m [38;5;28;01mfrom[39;00m [38;5;21;01msklearn[39;00m [38;5;28;01mimport[39;00m svm [38;5;66;03m# for Support Vector Machine[39;00m
 [0;32m     17[0m [38;5;28;01mfrom[39;00m [38;5;21;01msklearn[39;00m [38;5;28;01mimport[39;00m metrics [38;5;66;03m# for the check the error and accuracy of the model[39;00m
 [1;32m---> 18[0m [38;5;28;01mfrom[39;00m [38;5;21;01mplotnine[39;00m [38;5;28;01mimport[39;00m [38;5;241m*[39m [38;5;66;03m# incluye funciones de ggplot[39;00m
-[0;32m     19[0m [38;5;66;03m# Any results you write to the current directory are saved as output.[39;00m
-[0;32m     20[0m [38;5;66;03m# dont worry about the error if its not working then insteda of model_selection we can use cross_validation[39;00m
+[0;32m     19[0m [38;5;28;01mfrom[39;00m [38;5;21;01msklearn[39;00m[38;5;21;01m.[39;00m[38;5;21;01msvm[39;00m [38;5;28;01mimport[39;00m SVC [38;5;66;03m# support vector machine[39;00m
+[0;32m     20[0m [38;5;28;01mfrom[39;00m [38;5;21;01msklearn[39;00m[38;5;21;01m.[39;00m[38;5;21;01mmodel_selection[39;00m [38;5;28;01mimport[39;00m cross_val_score [38;5;66;03m# validacion cruzada[39;00m
 
 [1;31mModuleNotFoundError[0m: No module named 'plotnine'
 ModuleNotFoundError: No module named 'plotnine'
