@@ -31,7 +31,7 @@ from sklearn.model_selection import GridSearchCV # grid
 # dont worry about the error if its not working then insteda of model_selection we can use cross_validation
 
 
-# In[ ]:
+# In[2]:
 
 
 data = pd.read_csv(".\data.csv",header=0)
@@ -39,7 +39,7 @@ data = pd.read_csv(".\data.csv",header=0)
 
 # Reemplazamos las etiquetas desde strings a numeros: 1 = Maligno; 0 = Beningno
 
-# In[ ]:
+# In[3]:
 
 
 data.diagnosis = data.diagnosis.replace({"M":1, "B": 0})
@@ -47,13 +47,13 @@ data.diagnosis = data.diagnosis.replace({"M":1, "B": 0})
 
 # A continuación revisamos la estructura del dataframe y de las variables que contiene
 
-# In[ ]:
+# In[4]:
 
 
 data.head()
 
 
-# In[ ]:
+# In[5]:
 
 
 data.describe()
@@ -61,7 +61,7 @@ data.describe()
 
 # Contamos los valores perdidos para cada variable
 
-# In[ ]:
+# In[6]:
 
 
 data.isnull().sum()
@@ -69,7 +69,7 @@ data.isnull().sum()
 
 # En este caso el interés es clasificar correctamente los diagnosticos de una base datos. A continuación visualizamos los diagnosticos.
 
-# In[ ]:
+# In[7]:
 
 
 a = (data
@@ -83,7 +83,7 @@ a = (data
 
 # Se puede observar que la mayoría de diagnosticos son de tumores benignos y los malignos se presentan en una menor proporción. A continuación examinamos la distribución de los diagnosticos de acuerdo con otras variables de la base de datos
 
-# In[ ]:
+# In[8]:
 
 
 plt.figure(figsize=(20,20))
@@ -92,7 +92,7 @@ sns.heatmap(data.corr(),annot=True,fmt='.0%')
 
 # A partir de la matriz de correlacion se observa que hay grupos de variables que se relacionan entre sí. Por ejemplo, las variables radio, perimetro y area tienen una fuerte correlacion entre ellas.
 
-# In[ ]:
+# In[9]:
 
 
 facet = sns.FacetGrid(data, hue="diagnosis",aspect=4)
@@ -110,7 +110,7 @@ plt.xlim(10,40)
 
 # Los tumores malignos, presentan un radio promedio mayor en comparación con los tumores malignos. Mientras que con respecto a la textura (desviación estándar de los valores de la escala de grises), los tumores malignos también muestran una puntuación promedio más alta, que los tumores benignos.
 
-# In[ ]:
+# In[10]:
 
 
 cols = ["diagnosis", "radius_mean", "texture_mean", "perimeter_mean", "area_mean"]
@@ -121,7 +121,7 @@ plt.show()
 
 # De acuerdo con los diagramas de densidad, se aprecia que las variables que mejor permiten diferenciar el tipo de tumor, son el perimetro, el area y el radio, ya que en la variable textura, ambos grupos exhiben un alto solapamiento.
 
-# In[ ]:
+# In[11]:
 
 
 size = len(data['texture_mean'])
@@ -138,7 +138,7 @@ plt.scatter(data['texture_mean'], data['radius_mean'], s=area, c=colors, alpha=0
 
 # A continuación seleccionamos las variables cuantitativas para reducir la dimensionalidad del dataset
 
-# In[ ]:
+# In[12]:
 
 
 samples=data.iloc[:,2:32] # excluimos la variable de indentificación y la de diagnostico
@@ -147,7 +147,7 @@ samples.head(5)
 
 # A continuación escalamos las variables
 
-# In[ ]:
+# In[13]:
 
 
 from sklearn.preprocessing import MinMaxScaler
@@ -161,7 +161,7 @@ print(samples_scaled)
 
 # Ahora examinamos los valores propios para determinar el numero de componentes que debemos extraer
 
-# In[ ]:
+# In[14]:
 
 
 # importar paquetes
@@ -184,7 +184,7 @@ plt.show()
 
 # Analizando la varianza explicada por cada componente, parece suficiente extraer cuatro componentes
 
-# In[ ]:
+# In[15]:
 
 
 pca = PCA(n_components=4)
@@ -194,7 +194,7 @@ principalDf = pd.DataFrame(data = principalComponents
 principalDf
 
 
-# In[ ]:
+# In[16]:
 
 
 pca.explained_variance_ratio_.sum() # varianza explicada
@@ -202,7 +202,7 @@ pca.explained_variance_ratio_.sum() # varianza explicada
 
 # Ya obtuvimos las puntuaciones de cada observación en los cuatro componentes. Ahora procedemos a agregar estas puntuaciones en la BD original.
 
-# In[ ]:
+# In[17]:
 
 
 data_new=pd.concat([data[['diagnosis']],principalDf], axis = 1)
@@ -213,7 +213,7 @@ data_new.head()
 
 # Análisis de clasificación
 
-# In[ ]:
+# In[18]:
 
 
 X_train, X_test, y_train, y_test = train_test_split(data_new, data_new.diagnosis, random_state=0)
@@ -223,7 +223,7 @@ best_score = 0
 
 # Seleccionamos el modelo con mejor rendimiento
 
-# In[ ]:
+# In[19]:
 
 
 #for gamma in [0.01, 0.1, 1, 10]:
@@ -236,7 +236,7 @@ best_score = 0
        #     best_parameters = {'C': C, 'gamma': gamma}
 
 
-# In[ ]:
+# In[20]:
 
 
 #svm = SVC(**best_parameters)
@@ -245,7 +245,7 @@ best_score = 0
 
 # Ya sabemos que el modelo con C= 1 y gamma=0.01 es el que tiene mejor rendimiento. Ahora procedemos a validarlo con el metodo gridSearch
 
-# In[31]:
+# In[21]:
 
 
 param_grid = {'C': [0.01, 0.1, 1, 10],
