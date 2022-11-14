@@ -11,7 +11,7 @@ import plotly.figure_factory as ff
 
 app = dash.Dash(__name__)
 
-data = pd.read_csv("C:/GitHub/jbook1021/data.csv",header=0)
+data = pd.read_csv(".\data.csv",header=0)
 samples=data.iloc[:,2:32] # excluimos la variable de indentificación y la de diagnostico
 
 
