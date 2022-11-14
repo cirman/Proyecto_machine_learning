@@ -209,43 +209,55 @@ data_new=pd.concat([data[['diagnosis']],principalDf], axis = 1)
 data_new.head()
 
 
+# In[18]:
+
+
+X_trainval, X_test, y_trainval, y_test = train_test_split(data_new.iloc[:,1:], data_new.diagnosis, random_state=0)
+
+
 # Antes de entrenar el modelo nos aseguramos que haya ambos tipos de diganosticos al momento de divir las muestras
 
 # Análisis de clasificación
 
-# In[18]:
+# In[19]:
 
 
-X_train, X_test, y_train, y_test = train_test_split(data_new, data_new.diagnosis, random_state=0)
-print("Size of training set: {} size of test set: {}".format(X_train.shape[0], X_test.shape[0]))
+X_train, X_val, y_train, y_val = train_test_split(X_trainval, y_trainval, random_state=0)
+print("Size of training set: {} size of validation set: {}".format(X_train.shape[0], X_test.shape[0]))
 best_score = 0
 
 
 # Seleccionamos el modelo con mejor rendimiento
 
-# In[19]:
-
-
-#for gamma in [0.01, 0.1, 1, 10]:
-#    for C in [0.01, 0.1, 1, 10]:
- #       svm = SVC(gamma=gamma, C=C) # Entrena SVC para cada parámetro
-  #      scores = cross_val_score(svm, X_train, y_train, cv=5) # Calcula validación cruzada
-   #     score = np.mean(scores) # Calcula media de la validación cruzada para precisión
-    ##    if score > best_score:
-      #      best_score = score
-       #     best_parameters = {'C': C, 'gamma': gamma}
-
-
 # In[20]:
 
 
-#svm = SVC(**best_parameters)
-#svm.fit(X_train, y_train)
+for gamma in [0.01, 0.1, 1, 10]:
+    for C in [0.01, 0.1, 1, 10]:
+        svm = SVC(gamma=gamma, C=C) # Entrena SVC para cada parámetro
+        svm.fit(X_train, y_train) # Ajuste del modelo SVC
+        #scores = cross_val_score(svm, X_train, y_train, cv=5) # Calcula validación cruzada
+        #score = np.mean(scores) # Calcula media de la validación cruzada para precisión
+        score = svm.score(X_val, y_val) # Score para selección de parámetros
+        if score > best_score:
+            best_score = score
+            best_parameters = {'C': C, 'gamma': gamma}
 
-
-# Ya sabemos que el modelo con C= 1 y gamma=0.01 es el que tiene mejor rendimiento. Ahora procedemos a validarlo con el metodo gridSearch
 
 # In[21]:
+
+
+svm = SVC(**best_parameters)
+svm.fit(X_trainval, y_trainval)
+test_score = svm.score(X_test, y_test)
+print("Best score on validation set: {:.2f}".format(best_score))
+print("Best parameters: ", best_parameters)
+print("Test set score with best parameters: {:.2f}".format(test_score))
+
+
+# Ya sabemos que el modelo con C= 1 y gamma=1 es el que tiene mejor rendimiento. Ahora procedemos a validarlo con el metodo gridSearch
+
+# In[22]:
 
 
 param_grid = {'C': [0.01, 0.1, 1, 10],
@@ -260,4 +272,14 @@ print("Test set score: {:.2f}".format(grid_search.score(X_test, y_test)))
 
 print("Best parameters: {}".format(grid_search.best_params_))
 print("Best cross-validation score: {:.2f}".format(grid_search.best_score_))
+
+
+# In[23]:
+
+
+pd.DataFrame(
+    data=np.transpose(pca.components_),
+    columns=["PC1","PC2","PC3","PC4"],
+    index=samples.columns
+)
 
