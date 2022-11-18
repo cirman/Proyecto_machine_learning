@@ -12,6 +12,7 @@ import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv), data man
 import numpy as np
 import matplotlib.pyplot as plt # this is used for the plot the graph 
 import seaborn as sns # used for plot interactive graph. I like it most for plot
+import plotly.express as px
 get_ipython().run_line_magic('matplotlib', 'inline')
 from sklearn.linear_model import LogisticRegression # to apply the Logistic regression
 from sklearn.model_selection import train_test_split # to split the data into two parts
@@ -290,4 +291,11 @@ x = pd.DataFrame(
 fig, ax = plt.subplots(figsize=(10, 10))
 ax = sns.heatmap(x, annot=True, cmap='Spectral', linewidths=.5)
 plt.show()
+
+
+# In[25]:
+
+
+fig = px.imshow(x, text_auto=True, aspect="auto")
+fig.show()
 

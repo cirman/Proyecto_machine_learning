@@ -1,9 +1,11 @@
 import dash
 from dash import dcc
 from dash import html
+import dash_bootstrap_components as dbc
 import plotly.express as px
 import pandas as pd
 from dash.dependencies import Input, Output
+import numpy as np
 
 import plotly.figure_factory as ff
 
@@ -40,6 +42,16 @@ principalComponents = pca.fit_transform(samples_scaled)
 principalDf = pd.DataFrame(data = principalComponents
              , columns = ['PC 1', 'PC 2','PC 3','PC 4'])
 
+x = pd.DataFrame(
+    data=np.transpose(pca.components_),
+    columns=["PC1","PC2","PC3","PC4"],
+    index=samples.columns
+)
+
+calor = px.imshow(x, text_auto=True, aspect="auto")
+
+
+
 
 data_new=pd.concat([data[['diagnosis']],principalDf], axis = 1)
 
@@ -48,23 +60,45 @@ data = pd.concat([data,principalDf], axis = 1)
 
 
 app.layout = html.Div([
+    dbc.Row([
+            dbc.Col(html.H1("Distribucion de densidad de las variables"), className="mb-2")
+        ]),
+    dbc.Row([
+        dbc.Col(html.H6(children='Aqui podemos ver la distribucion de densidad para cada una de las variables tomadas en cuenta en el proyecto, como tambien para cada una de las 4 variables de PCA obtenidas luego de hacer el Analisis de componentes principales'), className="mb-4")
+    ]),
     html.Label('Dropdown'),
-    dcc.Dropdown(
-        id = "continuo",
-        options=[
-            {'label': 'Mean Radius', 'value': 'radius_mean'},
-            {'label': 'Mean Texture', 'value': 'texture_mean'},
-            {'label': 'Mean Perimeter', 'value': 'perimeter_mean'},
-            {'label' : 'PCA1', 'value' : 'PC 1'},
-            {'label' : 'PCA2', 'value' : 'PC 2'},
-            {'label' : 'PCA3', 'value' : 'PC 3'},
-            {'label' : 'PCA4', 'value' : 'PC 4'}
-        ],
-        value='radius_mean'
-    ),
-    dcc.Graph(
-        id='example-graph-2'
-    )
+    
+    
+    html.Div([
+        dcc.Dropdown(
+            id = "continuo",
+            options=[
+                {'label': 'Mean Radius', 'value': 'radius_mean'},
+                {'label': 'Mean Texture', 'value': 'texture_mean'},
+                {'label': 'Mean Perimeter', 'value': 'perimeter_mean'},
+                {'label' : 'PCA1', 'value' : 'PC 1'},
+                {'label' : 'PCA2', 'value' : 'PC 2'},
+                {'label' : 'PCA3', 'value' : 'PC 3'},
+                {'label' : 'PCA4', 'value' : 'PC 4'}
+            ],
+            value='radius_mean'
+        ),
+        dcc.Graph(
+            id='example-graph-2'
+        )
+    ]),
+
+
+    html.Div([
+        html.Div(
+            [html.H6("Mapa de calor de las variables respecto al analisis de componentes principales", className="graph__title")]
+        ),
+        dcc.Graph(
+            id='graph_calor',
+            figure = calor
+        )
+    ])
+
 
 ])
 
