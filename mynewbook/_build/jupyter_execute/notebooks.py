@@ -277,9 +277,17 @@ print("Best cross-validation score: {:.2f}".format(grid_search.best_score_))
 # In[23]:
 
 
-pd.DataFrame(
+x = pd.DataFrame(
     data=np.transpose(pca.components_),
     columns=["PC1","PC2","PC3","PC4"],
     index=samples.columns
 )
+
+
+# In[24]:
+
+
+fig, ax = plt.subplots(figsize=(10, 10))
+ax = sns.heatmap(x, annot=True, cmap='Spectral', linewidths=.5)
+plt.show()
 
