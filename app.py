@@ -83,7 +83,7 @@ app.layout =  dcc.Tabs([
             dbc.Row([
                 dbc.Col(html.H6(children='Aqui podemos ver la distribucion de densidad para cada una de las variables tomadas en cuenta en el proyecto, como tambien para cada una de las 4 variables de PCA obtenidas luego de hacer el Analisis de componentes principales'), className="mb-4")
             ]),
-            html.Label('Dropdown'),
+            html.Label('Escoja una variable'),
     
     
             html.Div([
@@ -230,8 +230,49 @@ def update_roc(model_select):
         roc.update_xaxes(constrain='domain')
         return roc
 
+@app.callback(
+    Output('contingency', 'figure'),
+    Input('model_select', 'value'))
+def update_cont(model_select):
+    if(model_select=="svm"):
+        param_grid = {'svm__C': [1, 10, 100, 1000, 10000, 100000], 
+              'svm__gamma': [0.00001, 0.0001, 0.001, 0.01, 0.1, 1]}
+        pipe = Pipeline([("scaler", MinMaxScaler()), ("PCA", PCA(n_components=4)), ("svm", SVC())])
+        grid = GridSearchCV(pipe, param_grid=param_grid, cv=5)
+        grid.fit(X_train, y_train)
+        pred=grid.predict(X_test)
+        cont = px.imshow(confusion_matrix(y_test, pred), text_auto=True, aspect="auto")
+        return cont
 
+    if(model_select=="logisticregression"):
+        param_grid={'logisticregression__C': [0.01, 0.1, 1, 10, 100]}
+        pipe = Pipeline([("scaler", MinMaxScaler()), ("PCA", PCA(n_components=4)), ("logisticregression", LogisticRegression())])
+        grid = GridSearchCV(pipe, param_grid=param_grid, cv=5, n_jobs = -1)
+        grid.fit(X_train, y_train)
+        pred=grid.predict(X_test)
+        cont = px.imshow(confusion_matrix(y_test, pred), text_auto=True, aspect="auto")
+        return cont
 
+    if(model_select=="RandomForest"):
+        pipe = Pipeline([('preprocessing', MinMaxScaler()), ("PCA", PCA(n_components=4)), ('classifier', RandomForestClassifier())])
+        param_grid = [{'classifier': [RandomForestClassifier(n_estimators=100)],
+        'preprocessing': [None], 'classifier__max_features': [1, 2, 3, 4]}]
+        grid = GridSearchCV(pipe, param_grid, cv=5)
+        grid.fit(X_train, y_train)
+        pred=grid.predict(X_test)
+        cont = px.imshow(confusion_matrix(y_test, pred), text_auto=True, aspect="auto")
+        return cont
+
+    if(model_select=="Gradient_boosting"):
+        param_grid = {'Gradient_boosting__n_estimators': [10, 20, 30, 40, 50, 55, 60, 65, 80]}
+        pipe = Pipeline([("scaler", MinMaxScaler()), ("PCA", PCA(n_components=4)), ("Gradient_boosting", xgb.XGBClassifier(objective="binary:logistic", booster='gblinear', learning_rate =0.1, eval_metric="auc"))])
+        grid = GridSearchCV(pipe, param_grid=param_grid, cv=5, n_jobs = -1)
+        grid.fit(X_train, y_train)
+        pred=grid.predict(X_test)
+        cont = px.imshow(confusion_matrix(y_test, pred), text_auto=True, aspect="auto")
+        return cont
+    
+    
 
 
 
