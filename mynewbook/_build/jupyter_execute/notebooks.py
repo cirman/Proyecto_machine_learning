@@ -371,6 +371,8 @@ print("Test set score: {:.2f}".format(grid.score(X_test, y_test)))
 print("Best parameters: {}".format(grid.best_params_))
 
 
+# Al igual que el modelo logístico, este modelo clasifica correctamente el 97% de los datos de testeo.
+
 # In[26]:
 
 
@@ -400,6 +402,8 @@ plt.title("Confusion matrix")
 plt.gca().invert_yaxis()
 
 
+# La matriz de confusión muestra que el modelo XGB solo tuvo 4 falsos negativos (una más que el modelo logístico) y 2 falsos positivos.
+
 # In[28]:
 
 
@@ -419,6 +423,8 @@ print("Best cross-validation score: {:.2f}".format(grid.best_score_))
 
 print("Test-set score: {:.2f}".format(grid.score(X_test, y_test)))
 
+
+# Al ensayar con el Random Forest model, este clasifica correctamente el 94% de los datos de testeo (porcentaje menor que los modelos previos).
 
 # In[29]:
 
@@ -448,3 +454,5 @@ scores_image = mglearn.tools.heatmap(confusion_matrix(y_test, pred),
 plt.title("Confusion matrix")
 plt.gca().invert_yaxis()
 
+
+# La matriz de confusión del Random Forest model muestra 4 falsos negativos y 4 falsos positivos (mas que el XGB, M. Logistico y SVM).
