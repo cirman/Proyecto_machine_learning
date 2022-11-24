@@ -166,9 +166,17 @@ app.layout =  dcc.Tabs([
                 value='svm'
             ),
 
+            dbc.Row([
+                dbc.Col(html.H6(children='Una curva ROC es una representacion grafica de la sensibilidad frente a la especificidad  para un sistema de clasificacion binario segun varia su umbral de discriminacion'), className="mb-4")
+            ]),
+
             dcc.Graph(
                 id='roc_curve'
             ),
+            
+            dbc.Row([
+                dbc.Col(html.H6(children='Una tabla de contingencia es una tabla que cuenta las observaciones por múltiples variables categóricas. En general, el interés se centra en estudiar si existe alguna asociación entre filas y columnas, y se calcula la intensidad de dicha asociación.'), className="mb-4")
+            ]),
 
             html.Label('Aqui podemos ver su matriz de contingencia'),
 
