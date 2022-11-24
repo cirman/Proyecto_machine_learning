@@ -93,6 +93,33 @@ app.layout =  dcc.Tabs([
                         {'label': 'Mean Radius', 'value': 'radius_mean'},
                         {'label': 'Mean Texture', 'value': 'texture_mean'},
                         {'label': 'Mean Perimeter', 'value': 'perimeter_mean'},
+                        {'label': 'Mean Area', 'value': 'area_mean'},
+                        {'label': 'Mean Smoothness', 'value': 'smoothness_mean'},
+                        {'label': 'Mean Compactness', 'value': 'compactness_mean'},
+                        {'label': 'Mean Concavity', 'value': 'concavity_mean'},
+                        {'label': 'Mean Concave Points', 'value': 'concave points_mean'},
+                        {'label': 'Mean Symmetry', 'value': 'symmetry_mean'},
+                        {'label': 'Mean Fractal Dimension', 'value': 'fractal_dimension_mean'},
+                        {'label': 'Standard Error Radius', 'value': 'radius_se'},
+                        {'label': 'Standard Error Texture', 'value': 'texture_se'},
+                        {'label': 'Standard Error Perimeter', 'value': 'perimeter_se'},
+                        {'label': 'Standard Error Area', 'value': 'area_se'},
+                        {'label': 'Standard Error Smoothness', 'value': 'smoothness_se'},
+                        {'label': 'Standard Error Compactness', 'value': 'compactness_se'},
+                        {'label': 'Standard Error Concavity', 'value': 'concavity_se'},
+                        {'label': 'Standard Error Concave Points', 'value': 'concave points_se'},
+                        {'label': 'Standard Error Symmetry', 'value': 'symmetry_se'},
+                        {'label': 'Standard Error Fractal Dimension', 'value': 'fractal_dimension_se'},
+                        {'label': 'Worst Radius', 'value': 'radius_worst'},
+                        {'label': 'Worst Texture', 'value': 'texture_worst'},
+                        {'label': 'Worst Perimeter', 'value': 'perimeter_worst'},
+                        {'label': 'Worst Area', 'value': 'area_worst'},
+                        {'label': 'Worst Smoothness', 'value': 'smoothness_worst'},
+                        {'label': 'Worst Compactness', 'value': 'compactness_worst'},
+                        {'label': 'Worst Concavity', 'value': 'concavity_worst'},
+                        {'label': 'Worst Concave Points', 'value': 'concave points_worst'},
+                        {'label': 'Worst Symmetry', 'value': 'symmetry_worst'},
+                        {'label': 'Worst Fractal Dimension', 'value': 'fractal_dimension_worst'},
                         {'label' : 'PCA1', 'value' : 'PC 1'},
                         {'label' : 'PCA2', 'value' : 'PC 2'},
                         {'label' : 'PCA3', 'value' : 'PC 3'},
@@ -142,6 +169,8 @@ app.layout =  dcc.Tabs([
             dcc.Graph(
                 id='roc_curve'
             ),
+
+            html.Label('Aqui podemos ver su matriz de contingencia'),
 
             dcc.Graph(
                 id='contingency'
