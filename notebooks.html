@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Clasificación de tumores benignos y malignos &#8212; Basic Machine Learning with Cancer</title>
+    <title>EDA (Analisis Exploratorio de Datos) &#8212; Basic Machine Learning with Cancer</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -116,7 +116,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Clasificación de tumores benignos y malignos
+   EDA (Analisis Exploratorio de Datos)
   </a>
  </li>
  <li class="toctree-l1">
@@ -330,15 +330,22 @@ title="Print to PDF"
     </div>
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#eda-analisis-exploratorio-de-datos">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
    EDA (Analisis Exploratorio de Datos)
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#componentes-principales">
-   Componentes principales
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#clasificacion-de-tumores-benignos-y-malignos">
+   Clasificación de tumores benignos y malignos
   </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#componentes-principales">
+     Componentes principales
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -349,7 +356,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Clasificación de tumores benignos y malignos</h1>
+                <h1>EDA (Analisis Exploratorio de Datos)</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -359,15 +366,22 @@ title="Print to PDF"
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#eda-analisis-exploratorio-de-datos">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
    EDA (Analisis Exploratorio de Datos)
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#componentes-principales">
-   Componentes principales
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#clasificacion-de-tumores-benignos-y-malignos">
+   Clasificación de tumores benignos y malignos
   </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#componentes-principales">
+     Componentes principales
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -379,10 +393,11 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="clasificacion-de-tumores-benignos-y-malignos">
+  <section id="eda-analisis-exploratorio-de-datos">
+<h1>EDA (Analisis Exploratorio de Datos)<a class="headerlink" href="#eda-analisis-exploratorio-de-datos" title="Permalink to this headline">#</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="clasificacion-de-tumores-benignos-y-malignos">
 <h1>Clasificación de tumores benignos y malignos<a class="headerlink" href="#clasificacion-de-tumores-benignos-y-malignos" title="Permalink to this headline">#</a></h1>
-<section id="eda-analisis-exploratorio-de-datos">
-<h2>EDA (Analisis Exploratorio de Datos)<a class="headerlink" href="#eda-analisis-exploratorio-de-datos" title="Permalink to this headline">#</a></h2>
 <p>Para este ejercicio de aprendizaje sobre tecnicas de aprendizaje supervizado se utilizarán los siguientes datos: <a class="reference external" href="https://www.kaggle.com/code/gargmanish/basic-machine-learning-with-cancer/data">https://www.kaggle.com/code/gargmanish/basic-machine-learning-with-cancer/data</a>
 Este conjunto de datos contiene información sobre caracteristicas las de tumores detectados en pacientes que fueron diagnosticados como malignos o benignos. A continuación se importan las librerias que se usarán en la actividad.</p>
 <div class="cell docutils container">
@@ -707,7 +722,7 @@ Este conjunto de datos contiene información sobre caracteristicas las de tumore
 </div>
 <div class="cell_output docutils container">
 <img alt="_images/notebooks_14_0.png" src="_images/notebooks_14_0.png" />
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;ggplot: (121643378601)&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;ggplot: (130469443491)&gt;
 </pre></div>
 </div>
 </div>
@@ -805,13 +820,12 @@ This will become an error in seaborn v0.14.0; please update your code.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x1c5300971f0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x1e61134ada0&gt;
 </pre></div>
 </div>
 <img alt="_images/notebooks_23_1.png" src="_images/notebooks_23_1.png" />
 </div>
 </div>
-</section>
 <section id="componentes-principales">
 <h2>Componentes principales<a class="headerlink" href="#componentes-principales" title="Permalink to this headline">#</a></h2>
 <p>A continuación seleccionamos las variables cuantitativas para reducir la dimensionalidad del dataset</p>
@@ -1211,22 +1225,22 @@ This will become an error in seaborn v0.14.0; please update your code.
       <th>0</th>
       <td>1.387021</td>
       <td>0.426895</td>
-      <td>-0.541705</td>
-      <td>0.048481</td>
+      <td>-0.541703</td>
+      <td>0.048483</td>
     </tr>
     <tr>
       <th>1</th>
       <td>0.462308</td>
       <td>-0.556947</td>
-      <td>-0.205174</td>
-      <td>-0.042829</td>
+      <td>-0.205175</td>
+      <td>-0.042830</td>
     </tr>
     <tr>
       <th>2</th>
       <td>0.954621</td>
       <td>-0.109701</td>
       <td>-0.147848</td>
-      <td>-0.001067</td>
+      <td>-0.001068</td>
     </tr>
     <tr>
       <th>3</th>
@@ -1239,7 +1253,7 @@ This will become an error in seaborn v0.14.0; please update your code.
       <th>4</th>
       <td>0.626828</td>
       <td>-0.302471</td>
-      <td>-0.409335</td>
+      <td>-0.409336</td>
       <td>0.238811</td>
     </tr>
     <tr>
@@ -1253,22 +1267,22 @@ This will become an error in seaborn v0.14.0; please update your code.
       <th>564</th>
       <td>1.002840</td>
       <td>-0.474785</td>
-      <td>-0.100040</td>
+      <td>-0.100041</td>
       <td>0.272995</td>
     </tr>
     <tr>
       <th>565</th>
       <td>0.620757</td>
       <td>-0.517200</td>
-      <td>0.400361</td>
-      <td>0.182444</td>
+      <td>0.400360</td>
+      <td>0.182443</td>
     </tr>
     <tr>
       <th>566</th>
       <td>0.226311</td>
       <td>-0.287946</td>
       <td>0.315224</td>
-      <td>-0.011746</td>
+      <td>-0.011747</td>
     </tr>
     <tr>
       <th>567</th>
@@ -1281,8 +1295,8 @@ This will become an error in seaborn v0.14.0; please update your code.
       <th>568</th>
       <td>-0.905068</td>
       <td>-0.104109</td>
-      <td>0.382859</td>
-      <td>0.068359</td>
+      <td>0.382860</td>
+      <td>0.068360</td>
     </tr>
   </tbody>
 </table>
@@ -1296,7 +1310,7 @@ This will become an error in seaborn v0.14.0; please update your code.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8390687984663554
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.839068798467184
 </pre></div>
 </div>
 </div>
