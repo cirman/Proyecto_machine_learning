@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Clasificación de tumores benignos y malignos
-
 # ## EDA (Analisis Exploratorio de Datos)
+
+# # Clasificación de tumores benignos y malignos
 
 # Para este ejercicio de aprendizaje sobre tecnicas de aprendizaje supervizado se utilizarán los siguientes datos: https://www.kaggle.com/code/gargmanish/basic-machine-learning-with-cancer/data
 # Este conjunto de datos contiene información sobre caracteristicas las de tumores detectados en pacientes que fueron diagnosticados como malignos o benignos. A continuación se importan las librerias que se usarán en la actividad. 
