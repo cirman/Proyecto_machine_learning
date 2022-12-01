@@ -149,14 +149,12 @@ plt.ylabel("Recall");
 
 
 fpr, tpr, thresholds = roc_curve(y_test, grid.decision_function(X_test))
-fig = px.area(
-    x=fpr, y=tpr,
-    title=f'ROC Curve (AUC={auc(fpr, tpr):.4f})',
-    labels=dict(x='False Positive Rate', y='True Positive Rate'),
-    width=500, height=500)
-fig.update_yaxes(scaleanchor="x", scaleratio=1)
-fig.update_xaxes(constrain='domain')
-fig.show()
+plt.title(f'ROC Curve (AUC={auc(fpr, tpr):.4f})')
+plt.plot(fpr, tpr)
+plt.ylabel('True Positive Rate')
+plt.xlabel('False Positive Rate')
+plt.fill_between(fpr, tpr)
+plt.show()
 
 
 # Una vez se observan los casos clasificados correctamente, es necesario examinar la curva ROC la cual muestra la relación entre las clasificaciones correctas e incorrectas. Asimismo, el AUC es un valor que oscila entre 0 y 1. Valores cercanos a 1 indican mayor calidad del modelo. En este caso el AUC de 0.996 muestra que el modelo resulta bastante bueno.
@@ -200,15 +198,13 @@ plt.gca().invert_yaxis()
 # In[14]:
 
 
-fpr, tpr, thresholds = roc_curve(y_test, grid.decision_function(X_test))
-fig = px.area(
-    x=fpr, y=tpr,
-    title=f'ROC Curve (AUC={auc(fpr, tpr):.4f})',
-    labels=dict(x='False Positive Rate', y='True Positive Rate'),
-    width=500, height=500)
-fig.update_yaxes(scaleanchor="x", scaleratio=1)
-fig.update_xaxes(constrain='domain')
-fig.show()
+fpr, tpr, thresholds = roc_curve(y_test, grid.predict_proba(X_test)[:,1])
+plt.title(f'ROC Curve (AUC={auc(fpr, tpr):.4f})')
+plt.plot(fpr, tpr)
+plt.ylabel('True Positive Rate')
+plt.xlabel('False Positive Rate')
+plt.fill_between(fpr, tpr)
+plt.show()
 
 
 # In[15]:
@@ -258,14 +254,12 @@ print("Best parameters: {}".format(grid.best_params_))
 
 
 fpr, tpr, thresholds = roc_curve(y_test, grid.predict_proba(X_test)[:,1])
-fig = px.area(
-    x=fpr, y=tpr,
-    title=f'ROC Curve (AUC={auc(fpr, tpr):.4f})',
-    labels=dict(x='False Positive Rate', y='True Positive Rate'),
-    width=500, height=500)
-fig.update_yaxes(scaleanchor="x", scaleratio=1)
-fig.update_xaxes(constrain='domain')
-fig.show()
+plt.title(f'ROC Curve (AUC={auc(fpr, tpr):.4f})')
+plt.plot(fpr, tpr)
+plt.ylabel('True Positive Rate')
+plt.xlabel('False Positive Rate')
+plt.fill_between(fpr, tpr)
+plt.show()
 
 
 # In[20]:
@@ -335,14 +329,12 @@ print("Test-set score: {:.3f}".format(grid.score(X_test, y_test)))
 
 
 fpr, tpr, thresholds = roc_curve(y_test, grid.predict_proba(X_test)[:,1])
-fig = px.area(
-    x=fpr, y=tpr,
-    title=f'ROC Curve (AUC={auc(fpr, tpr):.4f})',
-    labels=dict(x='False Positive Rate', y='True Positive Rate'),
-    width=500, height=500)
-fig.update_yaxes(scaleanchor="x", scaleratio=1)
-fig.update_xaxes(constrain='domain')
-fig.show()
+plt.title(f'ROC Curve (AUC={auc(fpr, tpr):.4f})')
+plt.plot(fpr, tpr)
+plt.ylabel('True Positive Rate')
+plt.xlabel('False Positive Rate')
+plt.fill_between(fpr, tpr)
+plt.show()
 
 
 # In[26]:
